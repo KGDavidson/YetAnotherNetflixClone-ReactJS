@@ -33,8 +33,8 @@ const Banner = (props: { netflixOriginals: NetflixOriginal[] }) => {
         >
             <h2>{bannerItem.title}</h2>
             <div className="buttonContainer">
-                <button>Play</button>
-                <button>My List</button>
+                <a href="#">Play</a>
+                <a href="#">My List</a>
             </div>
             <p>{bannerItem.desc}</p>
             <div className="fadeBottom"></div>
