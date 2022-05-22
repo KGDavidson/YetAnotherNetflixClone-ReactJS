@@ -2,7 +2,7 @@
 
 Yet another Netflix clone with a mobile friendly design made using ReactJS and The Movie DB
 
-![UI](https://i.postimg.cc/Yq4YbYdw/ezgif-com-gif-maker-4.gif)
+![UI](https://i.postimg.cc/RVD5z51H/GIF-22-05-2022-04-57-53.gif)
 
 ---
 
