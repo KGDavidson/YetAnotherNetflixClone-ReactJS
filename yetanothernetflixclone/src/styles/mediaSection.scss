@@ -74,12 +74,29 @@
 
 .trailer {
     width: 100%;
-    height: 450px;
+    height: 50vh;
     display: flex;
     justify-content: center;
     align-items: center;
     iframe {
         width: 90%;
-        height: 400px;
+        height: 85%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .trailer {
+        height: 35vh;
+        iframe {
+            height: 80%;
+        }
+    }
+
+    .mediaSection {
+        .scroller {
+            img {
+                width: 30vw;
+            }
+        }
     }
 }

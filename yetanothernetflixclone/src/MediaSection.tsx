@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import { API_KEY } from "./API_KEY";
 import { NetflixOriginal, Poster } from "./interfaces";
 
-const MediaSection = (props: { title: string; posters: Poster[] }) => {
+const MediaSection = (props: {
+    id: string;
+    title: string;
+    posters: Poster[];
+    apiSlug: string;
+}) => {
     const [scrollPos, setScrollPos] = useState(0);
     const [trailer, setTrailer] = useState("");
 
-    const getTrailers = async (index: number, apiSlug = "movie") => {
-        const url = `https://api.themoviedb.org/3/${apiSlug}/${props.posters[index].id}/videos?api_key=${API_KEY}`;
+    const getTrailers = async (index: number) => {
+        const url = `https://api.themoviedb.org/3/${props.apiSlug}/${props.posters[index].id}/videos?api_key=${API_KEY}`;
         const response = await fetch(url);
         if (response.status !== 200) return "";
 
@@ -27,19 +32,21 @@ const MediaSection = (props: { title: string; posters: Poster[] }) => {
     };
 
     useEffect(() => {
-        document.getElementById("scroller")!.scrollLeft = scrollPos;
-    }, [scrollPos]);
+        document
+            .getElementById(props.id)!
+            .getElementsByClassName("scroller")[0]!.scrollLeft = scrollPos;
+    }, [scrollPos, props]);
 
     return (
-        <div>
+        <div id={props.id}>
             <section className="mediaSection">
                 <h3>{props.title}</h3>
-                <div id="scroller" className="scroller">
+                <div className="scroller">
                     <div className="spacer"></div>
                     {props.posters.map((item, idx) => (
                         <img
                             onClick={() => {
-                                getTrailers(idx, "tv");
+                                getTrailers(idx);
                             }}
                             key={idx}
                             alt="imagePoster"
@@ -75,27 +82,69 @@ const MediaSection = (props: { title: string; posters: Poster[] }) => {
                 className="trailer"
                 style={{ display: trailer ? "flex" : "none" }}
             >
-                <iframe src={trailer}></iframe>
+                <iframe title="trailer" src={trailer}></iframe>
             </section>
         </div>
     );
 };
 
-const OriginalsSection = (props: { netflixOriginals: NetflixOriginal[] }) => {
+const OriginalsSection = (props: { netflixOriginals: NetflixOriginal[] }) => (
+    <MediaSection
+        apiSlug="tv"
+        id="originals"
+        title="Netflix Originals"
+        posters={props.netflixOriginals}
+    ></MediaSection>
+);
+
+const TrendingSection = () => {
+    const [trending, setTrending] = useState([]);
+
+    const getTrending = async () => {
+        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
+        const response = await fetch(url);
+        const json = await response.json();
+        console.log(json);
+        setTrending(json.results);
+    };
+
+    useEffect(() => {
+        getTrending();
+    }, []);
+
     return (
         <MediaSection
-            title="Netflix Originals"
-            posters={props.netflixOriginals}
+            apiSlug="movie"
+            id="trending"
+            title="Trending Now"
+            posters={trending}
         ></MediaSection>
     );
 };
 
-const TrendingSection = () => {
-    return <div></div>;
-};
+const CategorySection = (props: { genreName: string; genreId: number }) => {
+    const [category, setCategory] = useState([]);
 
-const CategorySection = () => {
-    return <div></div>;
+    const getCategory = async () => {
+        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${props.genreId}`;
+        const response = await fetch(url);
+        const json = await response.json();
+        console.log(json);
+        setCategory(json.results);
+    };
+
+    useEffect(() => {
+        getCategory();
+    }, []);
+
+    return (
+        <MediaSection
+            apiSlug="movie"
+            id={props.genreName.toLowerCase().replace(" ", "_")}
+            title={`${props.genreName}`}
+            posters={category}
+        ></MediaSection>
+    );
 };
 
 export { OriginalsSection, TrendingSection, CategorySection };

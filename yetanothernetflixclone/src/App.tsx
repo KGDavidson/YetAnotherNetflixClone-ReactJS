@@ -30,11 +30,30 @@ const App = () => {
                 netflixOriginals={netflixOriginals}
             ></OriginalsSection>
             <TrendingSection></TrendingSection>
-            <CategorySection></CategorySection>
-            <CategorySection></CategorySection>
-            <CategorySection></CategorySection>
-            <CategorySection></CategorySection>
-            <CategorySection></CategorySection>
+            <CategorySection
+                genreName="Animated Movies"
+                genreId={16}
+            ></CategorySection>
+            <CategorySection
+                genreName="Action Movies"
+                genreId={28}
+            ></CategorySection>
+            <CategorySection
+                genreName="Comedy Movies"
+                genreId={35}
+            ></CategorySection>
+            <CategorySection
+                genreName="Horror Movies"
+                genreId={27}
+            ></CategorySection>
+            <CategorySection
+                genreName="Romance Movies"
+                genreId={10749}
+            ></CategorySection>
+            <CategorySection
+                genreName="Documentaries"
+                genreId={99}
+            ></CategorySection>
         </div>
     );
 };
