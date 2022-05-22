@@ -6,7 +6,9 @@ body {
     -webkit-font-smoothing: antialiased;
 
     background: #111;
+    overflow-x: hidden;
 }
 
 @import "navbar.scss";
 @import "banner.scss";
+@import "mediaSection.scss";
