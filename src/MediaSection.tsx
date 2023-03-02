@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { API_KEY } from "./API_KEY";
 import { NetflixOriginal, Poster } from "./interfaces";
 
 const MediaSection = (props: {
@@ -12,7 +11,7 @@ const MediaSection = (props: {
     const [trailer, setTrailer] = useState("");
 
     const getTrailers = async (index: number) => {
-        const url = `https://api.themoviedb.org/3/${props.apiSlug}/${props.posters[index].id}/videos?api_key=${API_KEY}`;
+        const url = `https://api.themoviedb.org/3/${props.apiSlug}/${props.posters[index].id}/videos?api_key=${process.env.REACT_APP_API_KEY}`;
         const response = await fetch(url);
         if (response.status !== 200) return "";
 
@@ -101,7 +100,7 @@ const TrendingSection = () => {
     const [trending, setTrending] = useState([]);
 
     const getTrending = async () => {
-        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
+        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}`;
         const response = await fetch(url);
         const json = await response.json();
         console.log(json);
@@ -126,7 +125,7 @@ const CategorySection = (props: { genreName: string; genreId: number }) => {
     const [category, setCategory] = useState([]);
 
     const getCategory = async () => {
-        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${props.genreId}`;
+        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${props.genreId}`;
         const response = await fetch(url);
         const json = await response.json();
         console.log(json);
