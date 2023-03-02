@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NetflixOriginal, Poster } from "./interfaces";
 
 const MediaSection = (props: {
@@ -124,17 +124,17 @@ const TrendingSection = () => {
 const CategorySection = (props: { genreName: string; genreId: number }) => {
     const [category, setCategory] = useState([]);
 
-    const getCategory = async () => {
-        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${props.genreId}`;
-        const response = await fetch(url);
-        const json = await response.json();
-        console.log(json);
-        setCategory(json.results);
-    };
+    const getCategory = useCallback(async () => {
+      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${props.genreId}`;
+      const response = await fetch(url);
+      const json = await response.json();
+      console.log(json);
+      setCategory(json.results);
+    }, [props.genreId]);
 
     useEffect(() => {
         getCategory();
-    }, []);
+    }, [getCategory]);
 
     return (
         <MediaSection

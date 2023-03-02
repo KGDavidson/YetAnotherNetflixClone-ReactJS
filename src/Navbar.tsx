@@ -14,9 +14,9 @@ const Navbar = () => {
     return (
         <nav className={darken ? "darken" : ""}>
             <a href="/">
-                <img className="logo" src={logo}></img>
+                <img className="logo" src={logo} alt="NetProfit"></img>
             </a>
-            <img className="avatar" src={avatar}></img>
+            <img className="avatar" src={avatar} alt="Avatar"></img>
         </nav>
     );
 };
