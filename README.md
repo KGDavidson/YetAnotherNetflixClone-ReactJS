@@ -16,7 +16,7 @@ Yet another Netflix clone with a mobile friendly design made using ReactJS and T
 
 ## Live
 
--   Live site at https://yetanothernetflixclone.my.to/
+-   Live site at https://yetanothernetflixclone.netlify.app/
 
 ---
 
